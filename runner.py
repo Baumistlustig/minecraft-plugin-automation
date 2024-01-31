@@ -3,7 +3,6 @@ import os as os
 from subprocess import call
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from utils import changeDir
 from upload import upload
 
 class EventHandler(FileSystemEventHandler):
@@ -13,12 +12,11 @@ class EventHandler(FileSystemEventHandler):
         super().__init__()
 
     def on_moved(self, event):
-        
+
         if event.dest_path.endswith('.jar'):
             # Uploading to server
             print('Uploading to server')
             upload(self.config, event.src_path)
-
 
 
 class Runner:
