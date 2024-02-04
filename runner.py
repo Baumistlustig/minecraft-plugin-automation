@@ -6,33 +6,37 @@ from watchdog.events import FileSystemEventHandler
 from upload import upload
 
 class EventHandler(FileSystemEventHandler):
-    def __init__(self, config) -> None:
+    def __init__(self, config, name) -> None:
         self.config = config
+        self.name = name
 
         super().__init__()
 
     def on_moved(self, event):
 
-        if event.dest_path.endswith('.jar'):
+        if event.dest_path.endswith(self.name) and not event.dest_path.endswith('original-' + self.name):
             # Uploading to server
             print('Uploading to server')
-            upload(self.config, event.src_path)
+            upload(self.config, event.dest_path)
 
 
 class Runner:
     def __init__(self, runtime, config) -> None:
         self.runtime = runtime
         self.config = config
+        self.name = ''
 
         super().__init__()
 
-        # Check if target already exists
-        if os.path.isdir(self.config['path'] + 'target'):
-            print('test')
-            return
         pom = minidom.parse(self.config['path'] + 'pom.xml')
 
         name = pom.getElementsByTagName('artifactId')[0].firstChild.nodeValue + '-' + pom.getElementsByTagName('version')[0].firstChild.nodeValue + '.' + pom.getElementsByTagName('packaging')[0].firstChild.nodeValue
+
+        self.name = name
+
+        # Check if target already exists
+        if os.path.isdir(self.config['path'] + 'target'):
+            return
 
         if not os.path.isfile(f"{self.config['path']}target/{name}"):
             call(["mvn clean install"], cwd=self.config['path'], shell=True)
@@ -43,7 +47,7 @@ class Runner:
     def startListener(self):
         # Watch directory
         observer = Observer()
-        observer.schedule(EventHandler(self.config), self.config['path'], recursive=True)
+        observer.schedule(EventHandler(self.config, self.name), self.config['path'], recursive=True)
         observer.start()
 
         try:
