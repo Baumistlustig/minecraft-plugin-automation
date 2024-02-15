@@ -16,6 +16,6 @@
 
 ## Sonstiges
 
-- Programm wird in eine ausführbare Datei kompiliert
 - Kann auf Windows und Linux über Kommandozeile verwaltet werden
-- Läuft über Linuxservice bzw. Windows Systemdienst
+- Nutzt watchdog zum überwachen der Dateien
+- Lädt automatisches reload plugin auf server
