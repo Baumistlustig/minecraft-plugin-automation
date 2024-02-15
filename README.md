@@ -3,7 +3,7 @@
 ## Idee
 
 - Nach Kompilieren des Java-Projekts wird die .jar Datei automatisch auf den Server geladen
-- Lokal & FTP- bzw. SFTP Server unterstützt
+- Lokaler & FTP- bzw. SFTP Server unterstützt
 - Programm erkennt, wann das Plugin kompiliert wurde
 - Durch JSON Konfigurationsdatei werden alle notwendigen Daten festgelegt
 
