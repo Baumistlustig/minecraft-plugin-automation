@@ -1,5 +1,6 @@
 from xml.dom import minidom
 import os as os
+import json
 from subprocess import call
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -16,7 +17,6 @@ class EventHandler(FileSystemEventHandler):
 
         if event.dest_path.endswith(self.name) and not event.dest_path.endswith('original-' + self.name):
             # Uploading to server
-            print('Uploading to server')
             upload(self.config, event.dest_path)
 
 
@@ -58,5 +58,9 @@ class Runner:
         observer.join()
 
 if __name__ == '__main__':
-    runner = Runner(0, {"path": "/home/johannes/Documents/Dev/Java-Kotlin/replace-spawners/", "server": {"local": True, "serverPath": "/home/johannes/Documents/Minecraft/Testserver 1.20.1/", "adress": "0.0.0.0", "port": 80, "username": "USERNAME", "password": "TEST", "method": "ftp"}})
+    configurationFile = open('config.json')
+    config = json.load(configurationFile)
+    configurationFile.close()
+
+    runner = Runner(0, config)
     runner.startListener()

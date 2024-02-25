@@ -4,6 +4,8 @@ import typer
 from typing_extensions import Annotated
 from typing import Optional
 from ftplib import FTP
+import subprocess
+from runner import Runner
 
 app = typer.Typer()
 
@@ -70,6 +72,18 @@ def configure(
         print('\033[92m' + '\033[1m' + 'Saved configuration' + '\033[0m')
     
     file.close()
+
+@app.command()
+def start():
+    subprocess.run(["systemctl", "start", 'minecraft-auto'])
+
+    typer.echo('\033[92m' + 'Runner has started')
+
+@app.command()
+def stop():
+    subprocess.run(["systemctl", "stop", 'minecraft-auto'])
+
+    typer.echo('\033[93m' + 'Runner has stopped')
 
 if __name__ == '__main__':
     app()
