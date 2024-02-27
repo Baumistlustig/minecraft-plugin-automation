@@ -58,7 +58,7 @@ class Runner:
         observer.join()
 
 if __name__ == '__main__':
-    configurationFile = open('config.json')
+    configurationFile = open('/usr/bin/config.json')
     config = json.load(configurationFile)
     configurationFile.close()
 

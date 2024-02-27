@@ -1,9 +1,9 @@
+#!/usr/bin/python3
 import os as os
 import json
 import typer
 from typing_extensions import Annotated
 from typing import Optional
-from ftplib import FTP
 import subprocess
 from runner import Runner
 
@@ -27,18 +27,6 @@ def checkConfig(config):
             print('\033[91m' + '\033[1m' + 'Local server path is not valid!' + '\033[0m')
             
             return False
-    else:
-        # Try to connect to server
-        ftp = FTP(
-            config['server']['adress'] + ':' + config['server']['port'],
-            config['server']['username'],
-            config['server']['password']
-        )
-
-        if not ftp.login():
-            print('\033[91m' + '\033[1m' + 'Could\'nt connect to remote server!' + '\033[0m')
-
-            return False
         
     return True
 
@@ -50,8 +38,7 @@ def configure(
     adress: Annotated[Optional[str], typer.Option()] = config['server']['adress'],
     port: Annotated[Optional[int], typer.Option()] = config['server']['port'],
     username: Annotated[Optional[str], typer.Option()] = config['server']['username'],
-    password: Annotated[Optional[str], typer.Option()] = config['server']['password'],
-    method: Annotated[Optional[str], typer.Option()] = config['server']['method']):
+    password: Annotated[Optional[str], typer.Option()] = config['server']['password']):
 
     file = open('config.json')
     if checkConfig(json.load(file)):
@@ -64,8 +51,7 @@ def configure(
             "adress": adress,
             "port": port,
             "username": username,
-            "password": password,
-            "method": method
+            "password": password
         }}))
         writeFile.close()
 
@@ -77,13 +63,13 @@ def configure(
 def start():
     subprocess.run(["systemctl", "start", 'minecraft-auto'])
 
-    typer.echo('\033[92m' + 'Runner has started')
+    typer.echo('\033[92m' + 'Runner has started' + '\033[0m')
 
 @app.command()
 def stop():
     subprocess.run(["systemctl", "stop", 'minecraft-auto'])
 
-    typer.echo('\033[93m' + 'Runner has stopped')
+    typer.echo('\033[93m' + 'Runner has stopped' + '\033[0m')
 
 if __name__ == '__main__':
     app()
