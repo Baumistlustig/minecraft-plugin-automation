@@ -4,25 +4,35 @@
 
 GitHub repository klonen:
 
-```git clone https://github.com/hoellwerth/minecraft-plugin-automation && cd minecraft-plugin-automation```
+```
+git clone https://github.com/hoellwerth/minecraft-plugin-automation && cd minecraft-plugin-automation
+```
 
 Installationsskript ausführen:
 
-```sudo sh install.sh```
+```
+sudo sh install.sh
+```
 
 ## Nutzung
 
 ### Starten des Service
 
-```mcauto start```
+```
+mcauto start
+```
 
 ### Stoppen des Service
 
-```mcauto stop```
+```
+mcauto stop
+```
 
 ### Konfigurieren
 
-```mcauto configure <arguments>```
+```
+mcauto configure <arguments>
+```
 
 **Argumente:**
 - Pfad: `--path <path>`
