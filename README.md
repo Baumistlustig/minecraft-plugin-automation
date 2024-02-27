@@ -3,9 +3,11 @@
 ## Installation
 
 GitHub repository klonen:
+
 ```git clone https://github.com/hoellwerth/minecraft-plugin-automation && cd minecraft-plugin-automation```
 
 Installationsskript ausführen:
+
 ```sudo sh install.sh```
 
 ## Idee
