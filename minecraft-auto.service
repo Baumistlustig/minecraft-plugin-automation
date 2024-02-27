@@ -1,0 +1,11 @@
+[Unit]
+Description=Minecraft Plugin Automation
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=never
+ExecStart=/usr/bin/python3 /usr/bin/runner.py
+
+[Install]
+WantedBy=multi-user.target
