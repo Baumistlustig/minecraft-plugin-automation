@@ -5,7 +5,6 @@ import typer
 from typing_extensions import Annotated
 from typing import Optional
 import subprocess
-from runner import Runner
 
 app = typer.Typer()
 
